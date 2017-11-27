@@ -16,5 +16,23 @@ namespace QuanLyQuanCafe
         {
             InitializeComponent();
         }
+
+        private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void thôngTinCaNhânToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAccountProfile f = new frmAccountProfile();
+            f.ShowDialog();
+        }
+
+        private void adminToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAdmin f = new frmAdmin();
+            f.ShowDialog();
+        }
+
     }
 }
