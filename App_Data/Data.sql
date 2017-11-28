@@ -70,4 +70,38 @@ CREATE TABLE BillInfo
 )
 GO
 
+INSERT INTO Account VALUES('lhp0196', N'Lê Hữu Phước', '123456', 1)
+INSERT INTO Account VALUES('account1', N'Account1', '123456', 0)
+
+
+
+CREATE PROC usp_GetListAccountByUserName(@UserName nvarchar(100))
+AS
+	SELECT * FROM Account WHERE UserName = @UserName
+GO
+
+EXEC usp_GetListAccountByUserName 'lhp0196'
+GO
+
+
+CREATE PROC usp_Login(@UserName nvarchar(100), @PassWord nvarchar(100))
+AS
+BEGIN
+	SELECT * FROM Account WHERE UserName = @UserName AND PassWord = @PassWord
+END
+GO
+
+DECLARE @i INT = 16;
+WHILE @i < 25
+BEGIN
+	INSERT INTO TableFood(Name, status) VALUES(N'Bàn ' + CAST(@i AS nvarchar(100)), N'Trống')
+	SET @i = @i + 1
+END
+
+CREATE PROC usp_GetTableList
+AS
+	SELECT * FROM TableFood
+GO
+
+EXEC usp_GetTableList
 

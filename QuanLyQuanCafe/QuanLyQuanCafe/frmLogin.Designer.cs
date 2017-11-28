@@ -55,6 +55,7 @@
             // 
             // btnExit
             // 
+            this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnExit.Location = new System.Drawing.Point(322, 96);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(91, 32);
@@ -88,6 +89,7 @@
             this.txtPassWord.Name = "txtPassWord";
             this.txtPassWord.Size = new System.Drawing.Size(230, 20);
             this.txtPassWord.TabIndex = 1;
+            this.txtPassWord.Text = "123456";
             this.txtPassWord.UseSystemPasswordChar = true;
             // 
             // label2
@@ -115,6 +117,7 @@
             this.txtUser.Name = "txtUser";
             this.txtUser.Size = new System.Drawing.Size(230, 20);
             this.txtUser.TabIndex = 1;
+            this.txtUser.Text = "lhp0196";
             // 
             // label1
             // 
