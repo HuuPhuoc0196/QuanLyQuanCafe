@@ -68,7 +68,11 @@ namespace QuanLyQuanCafe.DAO
                     }
                 }
             }
-            data = cmd.ExecuteNonQuery();
+            using (cn)
+            {
+                cn.Open();
+                data = cmd.ExecuteNonQuery();
+            }
             return data;
         }
 
@@ -91,7 +95,11 @@ namespace QuanLyQuanCafe.DAO
                     }
                 }
             }
-            data = cmd.ExecuteScalar();
+            using (cn)
+            {
+                cn.Open();
+                data = cmd.ExecuteScalar();
+            }
             return data;
         }
     }

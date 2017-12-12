@@ -9,12 +9,13 @@ namespace QuanLyQuanCafe.DTO
 {
     public class Bill
     {
-        public  Bill(int id, DateTime? dateCheckIn, DateTime? dateCheckOut, int status)
+        public  Bill(int id, DateTime? dateCheckIn, DateTime? dateCheckOut, int status, int disCount = 0)
         {
             this.ID = id;
             this.DataCheckIn = dateCheckIn;
             this.DateCheckOut = dateCheckOut;
             this.Status = status;
+            this.DisCount = disCount;
         }
 
         public Bill(DataRow row)
@@ -24,7 +25,9 @@ namespace QuanLyQuanCafe.DTO
             var dateCheckOutTemp = row["DateCheckOut"];
             if(dateCheckOutTemp.ToString() != "")
                 this.DateCheckOut = (DateTime?)dateCheckOutTemp; 
-            this.Status = (int)row["status"]; 
+            this.Status = (int)row["status"];
+            if (row["DisCount"].ToString() != "")
+                this.DisCount = (int)row["DisCount"];
         }
         private int iD;
 
@@ -58,6 +61,12 @@ namespace QuanLyQuanCafe.DTO
             set { status = value; }
         }
 
-        
+        private int disCount;
+
+        public int DisCount
+        {
+            get { return disCount; }
+            set { disCount = value; }
+        }
     }
 }

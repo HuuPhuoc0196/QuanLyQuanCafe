@@ -19,10 +19,13 @@ namespace QuanLyQuanCafe
         {
             InitializeComponent();
             loadTable();
+            LoadCaterogy();
+            LoadComboboxTable(cbSwitchTable);
         }
         #region Method
         void loadTable()
         {
+            flpTable.Controls.Clear();
             List<Table> tableList = TableDAO.Instance.LoadTableList();
             foreach (Table item in tableList)
             {
@@ -61,13 +64,32 @@ namespace QuanLyQuanCafe
             }
             txtTotalPrice.Text = totalPrice.ToString("c", culture);
         }
-        
+
+        void LoadCaterogy()
+        {
+            cbCategory.DataSource = CategoryDAO.Instance.GetListCategory();
+            cbCategory.DisplayMember = "Name";
+        }
+
+        void LoadFoodListByCaterogyID(int id)
+        {
+            cbFood.DataSource = FoodDAO.Instance.GetFoodByCaterogyID(id);
+            cbFood.DisplayMember = "Name";
+        }
+
+        void LoadComboboxTable(ComboBox cb)
+        {
+            cb.DataSource = TableDAO.Instance.LoadTableList();
+            cb.DisplayMember = "Name";
+        }
+
         #endregion
 
         #region Event
         private void btn_Click(object sender, EventArgs e)
         {
             int tableID = ((sender as Button).Tag as Table).ID;
+            lsvBill.Tag = (sender as Button).Tag;   // lưu table vào lsvBill
             ShowBill(tableID);
         }
 
@@ -87,6 +109,72 @@ namespace QuanLyQuanCafe
             frmAdmin f = new frmAdmin();
             f.ShowDialog();
         }
+
+        private void cbCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int id = 0;
+            ComboBox cb = sender as ComboBox;
+            if (cb.SelectedItem == null)
+                return;
+            Category selected = cb.SelectedItem as Category;
+            id = selected.ID;
+            LoadFoodListByCaterogyID(id);
+        }
+
+        private void btnAddFood_Click(object sender, EventArgs e)
+        {
+            Table table = lsvBill.Tag as Table;
+            int idBill = BillDAO.Instance.GetUncheckBillIDByTableID(table.ID);
+            int idFood = (cbFood.SelectedItem as Food).ID;
+            int count = (int)nmFoodCount.Value;
+            if (idBill == -1)
+            {
+                BillDAO.Instance.InsertBill(table.ID);
+                BillInfoDAO.Instance.InsertBillInfo(BillDAO.Instance.GetMaxBillId(), idFood, count, table.ID);
+            }
+            else
+            {
+                int countBill = lsvBill.Items.Count;
+                BillInfoDAO.Instance.InsertBillInfo(idBill, idFood, count, table.ID);
+                
+            }
+            loadTable();
+            ShowBill(table.ID);
+        }
+
+        private void btnCheckOut_Click(object sender, EventArgs e)
+        {
+            Table table = lsvBill.Tag as Table;
+            int idBill = BillDAO.Instance.GetUncheckBillIDByTableID(table.ID);
+            int disCount = Convert.ToInt32(nmDisCount.Value);
+            float totalPrice = float.Parse(txtTotalPrice.Text.Split(',')[0]);
+            float finalTotalPrice = totalPrice * ((float)(100 - disCount) / 100);
+            CultureInfo culture = new CultureInfo("vi-VN");
+            if (idBill != -1)
+            {
+                if (MessageBox.Show(string.Format("Bạn có chắc muốn thanh toán hóa đơn cho bàn {0}? \nTổng tiền bạn phải trả sau khi đã giảm giá {1}% là {2}", table.Name, disCount, finalTotalPrice.ToString("c", culture)), "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
+                {
+                    BillDAO.Instance.CheckOut(idBill, disCount, totalPrice);
+                    loadTable();
+                    ShowBill(idBill);
+                }
+            }
+        }
+
+        private void btnSwitchTable_Click(object sender, EventArgs e)
+        {
+            Table table1 = (lsvBill.Tag as Table);
+            Table table2 = (cbSwitchTable.SelectedItem as Table);
+            if (MessageBox.Show(string.Format("Bạn có chắc muốn chuyển từ {0} sang {1} không ?",table1.Name, table2.Name), "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
+            {
+                int idTable1 = table1.ID;
+                int idTable2 = table2.ID;
+                TableDAO.Instance.SwitchTable(idTable1, idTable2);
+                loadTable();
+            }
+        }
+
         #endregion
+
     }
 }

@@ -30,5 +30,26 @@ namespace QuanLyQuanCafe.DAO
             }
             return -1;
         }
+
+        public void InsertBill(int idTableFood)
+        {
+            DataProvider.Instance.ExecuteNonQuery("EXEC usp_InsertBill @idTableFood", new object[] { idTableFood });
+        }
+
+        public int GetMaxBillId()
+        {
+            return (int)DataProvider.Instance.ExecuteScalar("SELECT MAX(Id) FROM Bill");
+        }
+
+        public void CheckOut(int idBill, int disCount, float totalPrice)
+        {
+            string query = "EXEC usp_pay @idBill , @DisCount , @TotalPrice";
+            DataProvider.Instance.ExecuteNonQuery(query, new object[] {idBill, disCount, totalPrice});
+        }
+
+        public DataTable GetListBillByDate(DateTime checkIn, DateTime checkOut)
+        {
+            return DataProvider.Instance.ExecuteQuery("EXEC GetListBillByDate @CheckIn , @CheckOut ", new object[] { checkIn, checkOut });
+        }
     }
 }
