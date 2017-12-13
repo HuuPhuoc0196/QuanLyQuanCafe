@@ -1,4 +1,5 @@
 ﻿using QuanLyQuanCafe.DAO;
+using QuanLyQuanCafe.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,7 +36,8 @@ namespace QuanLyQuanCafe
             string pass = txtPassWord.Text;
             if(login(user, pass))
             {
-                frmCafeManager f = new frmCafeManager();
+                Account account = AccountDAO.Instance.GetAccountByUserName(user);
+                frmCafeManager f = new frmCafeManager(account);
                 this.Hide();
                 f.ShowDialog();
                 this.Show();

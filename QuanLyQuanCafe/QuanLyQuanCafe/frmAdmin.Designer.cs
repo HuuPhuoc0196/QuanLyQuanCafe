@@ -393,6 +393,7 @@
             this.txtFoodID.ReadOnly = true;
             this.txtFoodID.Size = new System.Drawing.Size(185, 20);
             this.txtFoodID.TabIndex = 1;
+            this.txtFoodID.TextChanged += new System.EventHandler(this.txtFoodID_TextChanged);
             // 
             // label1
             // 
@@ -432,6 +433,7 @@
             this.btnViewFood.TabIndex = 5;
             this.btnViewFood.Text = "Xem";
             this.btnViewFood.UseVisualStyleBackColor = true;
+            this.btnViewFood.Click += new System.EventHandler(this.btnViewFood_Click);
             // 
             // btnDeleteFood
             // 
@@ -461,6 +463,7 @@
             // 
             // dgvFood
             // 
+            this.dgvFood.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvFood.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFood.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvFood.Location = new System.Drawing.Point(0, 0);

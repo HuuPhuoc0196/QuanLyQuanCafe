@@ -30,9 +30,14 @@ namespace QuanLyQuanCafe.DAO
                 Food food = new Food(item);
                 listFoodByCaterogyID.Add(food);
             }
-
-
             return listFoodByCaterogyID;
+        }
+
+        public DataTable GetTableFood()
+        {
+            string query = " SELECT Id AS [Mã], NAME AS [Tên], price AS [Giá], IdCategory AS [Mã loại] FROM Food";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query);
+            return data;
         }
     }
 }
