@@ -127,7 +127,32 @@ namespace QuanLyQuanCafe
         private void adminToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmAdmin f = new frmAdmin();
+            f.InsertFood += f_InsertFood;
+            f.DeleteFood += f_DeleteFood;
+            f.UpdateFood += f_UpdateFood;
             f.ShowDialog();
+        }
+
+        void f_UpdateFood(object sender, EventArgs e)
+        {
+            LoadFoodListByCaterogyID((cbCategory.SelectedItem as Category).ID);
+            if (lsvBill.Tag != null)
+                ShowBill((lsvBill.Tag as Table).ID);
+        }
+
+        void f_DeleteFood(object sender, EventArgs e)
+        {
+            LoadFoodListByCaterogyID((cbCategory.SelectedItem as Category).ID);
+            if (lsvBill.Tag != null)
+                ShowBill((lsvBill.Tag as Table).ID);
+            loadTable();
+        }
+
+        void f_InsertFood(object sender, EventArgs e)
+        {
+            LoadFoodListByCaterogyID((cbCategory.SelectedItem as Category).ID);
+            if(lsvBill.Tag != null)
+                ShowBill((lsvBill.Tag as Table).ID);
         }
 
         private void cbCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -144,6 +169,13 @@ namespace QuanLyQuanCafe
         private void btnAddFood_Click(object sender, EventArgs e)
         {
             Table table = lsvBill.Tag as Table;
+
+            if (table == null)
+            {
+                MessageBox.Show("Vui lòng chọn bàn cần thêm", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             int idBill = BillDAO.Instance.GetUncheckBillIDByTableID(table.ID);
             int idFood = (cbFood.SelectedItem as Food).ID;
             int count = (int)nmFoodCount.Value;
@@ -156,7 +188,6 @@ namespace QuanLyQuanCafe
             {
                 int countBill = lsvBill.Items.Count;
                 BillInfoDAO.Instance.InsertBillInfo(idBill, idFood, count, table.ID);
-                
             }
             loadTable();
             ShowBill(table.ID);
