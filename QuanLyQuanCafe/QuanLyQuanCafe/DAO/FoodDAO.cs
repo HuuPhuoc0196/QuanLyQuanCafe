@@ -69,17 +69,23 @@ namespace QuanLyQuanCafe.DAO
             return result > 0;
         }
 
-        public List<Food> SearchFoodByName(string name)
+        public DataTable SearchFoodByName(string name)
         {
-            List<Food> listFood = new List<Food>();
-            DataTable data = DataProvider.Instance.ExecuteQuery(string.Format("SELECT * FROM Food WHERE dbo.fuConvertToUnsign1(NAME) LIKE dbo.fuConvertToUnsign1(N'%{0}%')", name));
+            DataTable data = DataProvider.Instance.ExecuteQuery(string.Format("SELECT f.Id AS [Mã], f.NAME AS [Tên], f.price AS [Giá], fc.Name AS [Danh Mục] FROM Food AS f, FoodCategory AS fc WHERE f.IdCategory = fc.Id AND dbo.fuConvertToUnsign1(f.Name) LIKE dbo.fuConvertToUnsign1(N'%{0}%')", name));
+            return data;
+        }
+
+        public Food GetIDCategoryByNameFood(string name)
+        {
+            Food food = null;
+            string query = string.Format("SELECT f.* FROM Food AS f, FoodCategory AS fc WHERE f.IdCategory = fc.Id AND fc.Name = N'{0}'", name);
+            DataTable data = DataProvider.Instance.ExecuteQuery(query);
             foreach (DataRow item in data.Rows)
             {
-                Food food = new Food(item);
-                listFood.Add(food);
+                food = new Food(item);
+                return food;
             }
-
-            return listFood;
+            return food;
         }
     }
 }

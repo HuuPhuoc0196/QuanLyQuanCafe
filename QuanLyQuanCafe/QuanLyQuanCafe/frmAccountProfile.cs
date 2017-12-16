@@ -45,6 +45,8 @@ namespace QuanLyQuanCafe
             string passWord = txtPassWord.Text.Trim();
             string newPassWord = txtNewPassWord.Text.Trim();
             string reEnterPassWord = txtReEnterPassWord.Text.Trim();
+
+
             if(!newPassWord.Equals(reEnterPassWord))
                 MessageBox.Show("Vui lòng nhập lại mật khẩu đúng với mật khẩu mới", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else

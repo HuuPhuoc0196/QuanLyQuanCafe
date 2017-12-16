@@ -824,12 +824,13 @@
             // 
             // btnResetPassword
             // 
-            this.btnResetPassword.Location = new System.Drawing.Point(209, 123);
+            this.btnResetPassword.Location = new System.Drawing.Point(149, 123);
             this.btnResetPassword.Name = "btnResetPassword";
-            this.btnResetPassword.Size = new System.Drawing.Size(82, 55);
+            this.btnResetPassword.Size = new System.Drawing.Size(142, 41);
             this.btnResetPassword.TabIndex = 6;
             this.btnResetPassword.Text = "Đặt lại mật khẩu";
             this.btnResetPassword.UseVisualStyleBackColor = true;
+            this.btnResetPassword.Click += new System.EventHandler(this.btnResetPassword_Click);
             // 
             // panel24
             // 
@@ -897,9 +898,9 @@
             // 
             this.txtUser.Location = new System.Drawing.Point(128, 7);
             this.txtUser.Name = "txtUser";
-            this.txtUser.ReadOnly = true;
             this.txtUser.Size = new System.Drawing.Size(160, 20);
             this.txtUser.TabIndex = 1;
+            this.txtUser.TextChanged += new System.EventHandler(this.txtUser_TextChanged);
             // 
             // label13
             // 
@@ -930,6 +931,7 @@
             this.btnUpdateAccount.TabIndex = 6;
             this.btnUpdateAccount.Text = "Sửa";
             this.btnUpdateAccount.UseVisualStyleBackColor = true;
+            this.btnUpdateAccount.Click += new System.EventHandler(this.btnUpdateAccount_Click);
             // 
             // btnViewAccount
             // 
@@ -939,6 +941,7 @@
             this.btnViewAccount.TabIndex = 5;
             this.btnViewAccount.Text = "Xem";
             this.btnViewAccount.UseVisualStyleBackColor = true;
+            this.btnViewAccount.Click += new System.EventHandler(this.btnViewAccount_Click);
             // 
             // btnDeleteAccount
             // 
@@ -948,6 +951,7 @@
             this.btnDeleteAccount.TabIndex = 4;
             this.btnDeleteAccount.Text = "Xóa";
             this.btnDeleteAccount.UseVisualStyleBackColor = true;
+            this.btnDeleteAccount.Click += new System.EventHandler(this.btnDeleteAccount_Click);
             // 
             // btnAddAccount
             // 
@@ -957,6 +961,7 @@
             this.btnAddAccount.TabIndex = 3;
             this.btnAddAccount.Text = "Thêm";
             this.btnAddAccount.UseVisualStyleBackColor = true;
+            this.btnAddAccount.Click += new System.EventHandler(this.btnAddAccount_Click);
             // 
             // frmAdmin
             // 
