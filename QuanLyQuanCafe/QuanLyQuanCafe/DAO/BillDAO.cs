@@ -47,9 +47,14 @@ namespace QuanLyQuanCafe.DAO
             DataProvider.Instance.ExecuteNonQuery(query, new object[] {idBill, disCount, totalPrice});
         }
 
-        public DataTable GetListBillByDate(DateTime checkIn, DateTime checkOut)
+        public DataTable GetListBillByDate(DateTime checkIn, DateTime checkOut, int pageNum)
         {
-            return DataProvider.Instance.ExecuteQuery("EXEC GetListBillByDate @CheckIn , @CheckOut ", new object[] { checkIn, checkOut });
+            return DataProvider.Instance.ExecuteQuery("EXEC GetListBillByDate @CheckIn , @CheckOut , @Page ", new object[] { checkIn, checkOut, pageNum });
+        }
+
+        public int GetNumBillByDate(DateTime checkIn, DateTime checkOut)
+        {
+            return (int)DataProvider.Instance.ExecuteScalar("EXEC GetNumBillByDate @CheckIn , @CheckOut", new object[] { checkIn, checkOut});
         }
     }
 }

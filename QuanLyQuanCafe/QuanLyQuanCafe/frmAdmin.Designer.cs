@@ -113,6 +113,12 @@
             this.btnViewAccount = new System.Windows.Forms.Button();
             this.btnDeleteAccount = new System.Windows.Forms.Button();
             this.btnAddAccount = new System.Windows.Forms.Button();
+            this.btnFirst = new System.Windows.Forms.Button();
+            this.btnLast = new System.Windows.Forms.Button();
+            this.btnPreviours = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.txtPageNum = new System.Windows.Forms.TextBox();
+            this.btnReport = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tbBill.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -164,7 +170,7 @@
             this.tabControl1.Location = new System.Drawing.Point(13, 13);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(716, 478);
+            this.tabControl1.Size = new System.Drawing.Size(716, 450);
             this.tabControl1.TabIndex = 0;
             // 
             // tbBill
@@ -174,13 +180,14 @@
             this.tbBill.Location = new System.Drawing.Point(4, 22);
             this.tbBill.Name = "tbBill";
             this.tbBill.Padding = new System.Windows.Forms.Padding(3);
-            this.tbBill.Size = new System.Drawing.Size(708, 452);
+            this.tbBill.Size = new System.Drawing.Size(708, 424);
             this.tbBill.TabIndex = 0;
             this.tbBill.Text = "Doanh thu";
             this.tbBill.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnReport);
             this.panel2.Controls.Add(this.btnViewBill);
             this.panel2.Controls.Add(this.dtpkToDate);
             this.panel2.Controls.Add(this.dtpkFromDate);
@@ -191,7 +198,7 @@
             // 
             // btnViewBill
             // 
-            this.btnViewBill.Location = new System.Drawing.Point(281, 7);
+            this.btnViewBill.Location = new System.Drawing.Point(216, 6);
             this.btnViewBill.Name = "btnViewBill";
             this.btnViewBill.Size = new System.Drawing.Size(118, 32);
             this.btnViewBill.TabIndex = 2;
@@ -240,7 +247,7 @@
             this.tbFood.Location = new System.Drawing.Point(4, 22);
             this.tbFood.Name = "tbFood";
             this.tbFood.Padding = new System.Windows.Forms.Padding(3);
-            this.tbFood.Size = new System.Drawing.Size(708, 452);
+            this.tbFood.Size = new System.Drawing.Size(708, 424);
             this.tbFood.TabIndex = 1;
             this.tbFood.Text = "Thức ăn";
             this.tbFood.UseVisualStyleBackColor = true;
@@ -483,7 +490,7 @@
             this.tbFoodCategory.Location = new System.Drawing.Point(4, 22);
             this.tbFoodCategory.Name = "tbFoodCategory";
             this.tbFoodCategory.Padding = new System.Windows.Forms.Padding(3);
-            this.tbFoodCategory.Size = new System.Drawing.Size(708, 452);
+            this.tbFoodCategory.Size = new System.Drawing.Size(708, 424);
             this.tbFoodCategory.TabIndex = 2;
             this.tbFoodCategory.Text = "Danh mục";
             this.tbFoodCategory.UseVisualStyleBackColor = true;
@@ -586,6 +593,7 @@
             this.btnUpdateCategory.TabIndex = 6;
             this.btnUpdateCategory.Text = "Sửa";
             this.btnUpdateCategory.UseVisualStyleBackColor = true;
+            this.btnUpdateCategory.Click += new System.EventHandler(this.btnUpdateCategory_Click);
             // 
             // btnViewCategory
             // 
@@ -595,6 +603,7 @@
             this.btnViewCategory.TabIndex = 5;
             this.btnViewCategory.Text = "Xem";
             this.btnViewCategory.UseVisualStyleBackColor = true;
+            this.btnViewCategory.Click += new System.EventHandler(this.btnViewCategory_Click);
             // 
             // btnDeleteCategory
             // 
@@ -604,6 +613,7 @@
             this.btnDeleteCategory.TabIndex = 4;
             this.btnDeleteCategory.Text = "Xóa";
             this.btnDeleteCategory.UseVisualStyleBackColor = true;
+            this.btnDeleteCategory.Click += new System.EventHandler(this.btnDeleteCategory_Click);
             // 
             // btnAddCategory
             // 
@@ -613,6 +623,7 @@
             this.btnAddCategory.TabIndex = 3;
             this.btnAddCategory.Text = "Thêm";
             this.btnAddCategory.UseVisualStyleBackColor = true;
+            this.btnAddCategory.Click += new System.EventHandler(this.btnAddCategory_Click);
             // 
             // tbTable
             // 
@@ -622,7 +633,7 @@
             this.tbTable.Location = new System.Drawing.Point(4, 22);
             this.tbTable.Name = "tbTable";
             this.tbTable.Padding = new System.Windows.Forms.Padding(3);
-            this.tbTable.Size = new System.Drawing.Size(708, 452);
+            this.tbTable.Size = new System.Drawing.Size(708, 424);
             this.tbTable.TabIndex = 3;
             this.tbTable.Text = "Bàn ăn";
             this.tbTable.UseVisualStyleBackColor = true;
@@ -789,7 +800,7 @@
             this.tbAccount.Location = new System.Drawing.Point(4, 22);
             this.tbAccount.Name = "tbAccount";
             this.tbAccount.Padding = new System.Windows.Forms.Padding(3);
-            this.tbAccount.Size = new System.Drawing.Size(708, 452);
+            this.tbAccount.Size = new System.Drawing.Size(708, 424);
             this.tbAccount.TabIndex = 4;
             this.tbAccount.Text = "Tài khoản";
             this.tbAccount.UseVisualStyleBackColor = true;
@@ -963,11 +974,77 @@
             this.btnAddAccount.UseVisualStyleBackColor = true;
             this.btnAddAccount.Click += new System.EventHandler(this.btnAddAccount_Click);
             // 
+            // btnFirst
+            // 
+            this.btnFirst.Location = new System.Drawing.Point(17, 465);
+            this.btnFirst.Name = "btnFirst";
+            this.btnFirst.Size = new System.Drawing.Size(110, 28);
+            this.btnFirst.TabIndex = 1;
+            this.btnFirst.Text = ">> Trang Đầu <<";
+            this.btnFirst.UseVisualStyleBackColor = true;
+            this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
+            // 
+            // btnLast
+            // 
+            this.btnLast.Location = new System.Drawing.Point(615, 465);
+            this.btnLast.Name = "btnLast";
+            this.btnLast.Size = new System.Drawing.Size(110, 28);
+            this.btnLast.TabIndex = 2;
+            this.btnLast.Text = ">> Trang Cuối <<";
+            this.btnLast.UseVisualStyleBackColor = true;
+            this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
+            // 
+            // btnPreviours
+            // 
+            this.btnPreviours.Location = new System.Drawing.Point(133, 465);
+            this.btnPreviours.Name = "btnPreviours";
+            this.btnPreviours.Size = new System.Drawing.Size(110, 28);
+            this.btnPreviours.TabIndex = 3;
+            this.btnPreviours.Text = ">> Trang Trước <<";
+            this.btnPreviours.UseVisualStyleBackColor = true;
+            this.btnPreviours.Click += new System.EventHandler(this.btnPreviours_Click);
+            // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(483, 465);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(126, 28);
+            this.btnNext.TabIndex = 4;
+            this.btnNext.Text = ">> Trang Tiếp Theo <<";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // txtPageNum
+            // 
+            this.txtPageNum.Location = new System.Drawing.Point(316, 470);
+            this.txtPageNum.Name = "txtPageNum";
+            this.txtPageNum.ReadOnly = true;
+            this.txtPageNum.Size = new System.Drawing.Size(85, 20);
+            this.txtPageNum.TabIndex = 5;
+            this.txtPageNum.Text = "1";
+            this.txtPageNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPageNum.TextChanged += new System.EventHandler(this.txtPageNum_TextChanged);
+            // 
+            // btnReport
+            // 
+            this.btnReport.Location = new System.Drawing.Point(354, 6);
+            this.btnReport.Name = "btnReport";
+            this.btnReport.Size = new System.Drawing.Size(118, 32);
+            this.btnReport.TabIndex = 3;
+            this.btnReport.Text = "Report";
+            this.btnReport.UseVisualStyleBackColor = true;
+            this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
+            // 
             // frmAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(741, 503);
+            this.Controls.Add(this.txtPageNum);
+            this.Controls.Add(this.btnNext);
+            this.Controls.Add(this.btnPreviours);
+            this.Controls.Add(this.btnLast);
+            this.Controls.Add(this.btnFirst);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -1027,6 +1104,7 @@
             this.panel26.PerformLayout();
             this.panel27.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -1117,5 +1195,11 @@
         private System.Windows.Forms.Button btnViewAccount;
         private System.Windows.Forms.Button btnDeleteAccount;
         private System.Windows.Forms.Button btnAddAccount;
+        private System.Windows.Forms.Button btnFirst;
+        private System.Windows.Forms.Button btnLast;
+        private System.Windows.Forms.Button btnPreviours;
+        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.TextBox txtPageNum;
+        private System.Windows.Forms.Button btnReport;
     }
 }

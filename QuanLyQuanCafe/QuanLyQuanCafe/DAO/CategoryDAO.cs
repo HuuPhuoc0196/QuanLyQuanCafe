@@ -46,5 +46,14 @@ namespace QuanLyQuanCafe.DAO
             return category;
         }
 
+        public bool InsertCategory(string name)
+        {
+            string query = "EXEC usp_InsertCategory @name ";
+
+            int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] {name });
+
+            return result > 0;
+        }
+
     }
 }

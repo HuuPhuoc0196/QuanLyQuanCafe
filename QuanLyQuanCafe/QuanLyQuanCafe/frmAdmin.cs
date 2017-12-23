@@ -30,7 +30,7 @@ namespace QuanLyQuanCafe
         void Load()
         {
             LoadDateTimePickerBill();
-            LoadListBillByDate(dtpkFromDate.Value, dtpkToDate.Value);
+            LoadListBillByDate(dtpkFromDate.Value, dtpkToDate.Value, Convert.ToInt32(txtPageNum.Text));
             LoadTableFood();
             AddFoodBinding();
             LoadCategoryByCombobox(cbFoodCatagory);
@@ -51,9 +51,9 @@ namespace QuanLyQuanCafe
             cb.DataSource = CategoryDAO.Instance.GetListCategory();
             cb.DisplayMember = "Name";
         }
-        void LoadListBillByDate(DateTime checkIn, DateTime checkOut)
+        void LoadListBillByDate(DateTime checkIn, DateTime checkOut, int pageNum)
         {
-            dgvBill.DataSource = BillDAO.Instance.GetListBillByDate(checkIn, checkOut);
+            dgvBill.DataSource = BillDAO.Instance.GetListBillByDate(checkIn, checkOut, pageNum);
         }
 
         void LoadDateTimePickerBill()
@@ -92,7 +92,7 @@ namespace QuanLyQuanCafe
         #region Event
         private void btnViewBill_Click(object sender, EventArgs e)
         {
-            LoadListBillByDate(dtpkFromDate.Value, dtpkToDate.Value);
+            LoadListBillByDate(dtpkFromDate.Value, dtpkToDate.Value, Convert.ToInt32(txtPageNum.Text));
         }
 
         private void btnViewFood_Click(object sender, EventArgs e)
@@ -281,10 +281,85 @@ namespace QuanLyQuanCafe
             else
                 MessageBox.Show("Đặt lại mật khẩu không thành công. Erron", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+        private void btnFirst_Click(object sender, EventArgs e)
+        {
+            txtPageNum.Text = "1";
+        }
+
+        private void btnLast_Click(object sender, EventArgs e)
+        {
+            int sumRecord = BillDAO.Instance.GetNumBillByDate(dtpkFromDate.Value, dtpkToDate.Value);
+            int lastPage = sumRecord / 20;
+            if (sumRecord % 20 != 0)
+                lastPage++;
+            txtPageNum.Text = lastPage.ToString();
+        }
+
+        private void txtPageNum_TextChanged(object sender, EventArgs e)
+        {
+            LoadListBillByDate(dtpkFromDate.Value, dtpkToDate.Value, Convert.ToInt32(txtPageNum.Text));
+        }
+
+        private void btnPreviours_Click(object sender, EventArgs e)
+        {
+            int page = Convert.ToInt32(txtPageNum.Text);
+            if (page > 1)
+                page--;
+            txtPageNum.Text = page.ToString();
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            int page = Convert.ToInt32(txtPageNum.Text);
+
+            int sumRecord = BillDAO.Instance.GetNumBillByDate(dtpkFromDate.Value, dtpkToDate.Value);
+            int lastPage = sumRecord / 20;
+            if (sumRecord % 20 != 0)
+                lastPage++;
+
+            if (page < lastPage)
+                page++;
+            txtPageNum.Text = page.ToString();
+        }
+
+        private void btnReport_Click(object sender, EventArgs e)
+        {
+            frmReport f = new frmReport(dtpkFromDate.Value, dtpkToDate.Value);
+            f.ShowDialog();
+        }
+
+        private void btnAddCategory_Click(object sender, EventArgs e)
+        {
+            string name = txtCategoryName.Text;
+
+            if (CategoryDAO.Instance.InsertCategory(name))
+            {
+                MessageBox.Show("Thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                LoadTableFood();
+              //  if (insertFood != null)
+              //      insertFood(this, new EventArgs());
+            }
+            else
+                MessageBox.Show("Thêm không thành công vì dữ liệu đã tồn tại Erron", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void btnDeleteCategory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnUpdateCategory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnViewCategory_Click(object sender, EventArgs e)
+        {
+
+        }
         #endregion
 
-
-        
+       
 
     }
 }

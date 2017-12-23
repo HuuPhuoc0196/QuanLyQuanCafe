@@ -197,7 +197,15 @@ namespace QuanLyQuanCafe
         private void btnCheckOut_Click(object sender, EventArgs e)
         {
             Table table = lsvBill.Tag as Table;
-            int idBill = BillDAO.Instance.GetUncheckBillIDByTableID(table.ID);
+            int idBill = -1;
+            try
+            {
+                idBill = BillDAO.Instance.GetUncheckBillIDByTableID(table.ID);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Bạn chưa chọn bàn", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
             int disCount = Convert.ToInt32(nmDisCount.Value);
             float totalPrice = float.Parse(txtTotalPrice.Text.Split(',')[0]);
             float finalTotalPrice = totalPrice * ((float)(100 - disCount) / 100);
