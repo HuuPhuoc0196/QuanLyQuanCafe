@@ -17,6 +17,7 @@ namespace QuanLyQuanCafe
     {
         BindingSource foodList = new BindingSource();
         BindingSource AccountList = new BindingSource();
+        BindingSource foodCategory = new BindingSource();
 
         public Account loginAccount;
         public frmAdmin()
@@ -37,6 +38,8 @@ namespace QuanLyQuanCafe
             LoadListAccount();
             LoadListAccountType();
             AddAccountBinding();
+            LoadFoodCategory();
+            AddFoodCategoryBinding();
         }
 
         void AddFoodBinding()
@@ -44,6 +47,12 @@ namespace QuanLyQuanCafe
             txtFoodID.DataBindings.Add("Text", dgvFood.DataSource, "Mã", true, DataSourceUpdateMode.Never);
             txtFoodName.DataBindings.Add("Text", dgvFood.DataSource, "Tên", true, DataSourceUpdateMode.Never);
             nmFoodPrice.DataBindings.Add("Value", dgvFood.DataSource, "Giá", true, DataSourceUpdateMode.Never);
+        }
+
+        void AddFoodCategoryBinding()
+        {
+            txtCategoryID.DataBindings.Add("Text", dgvCategory.DataSource, "Mã", true, DataSourceUpdateMode.Never);
+            txtCategoryName.DataBindings.Add("Text", dgvCategory.DataSource, "Tên", true, DataSourceUpdateMode.Never);
         }
 
         void LoadCategoryByCombobox(ComboBox cb)
@@ -68,7 +77,11 @@ namespace QuanLyQuanCafe
             foodList.DataSource = FoodDAO.Instance.GetTableFood();
             dgvFood.DataSource = foodList;
         }
-
+        void LoadFoodCategory()
+        {
+            foodCategory.DataSource = CategoryDAO.Instance.GetFoodCategory();
+            dgvCategory.DataSource = foodCategory;
+        }
         void LoadListAccount()
         {
             AccountList.DataSource = AccountDAO.Instance.GetListAccount();
@@ -109,13 +122,14 @@ namespace QuanLyQuanCafe
                 {
                     string nameFoodCategory = (string)dgvFood.SelectedCells[0].OwningRow.Cells["Danh Mục"].Value;
                     id = FoodDAO.Instance.GetIDCategoryByNameFood(nameFoodCategory).IdCaterogy;
+
+                    Category category = CategoryDAO.Instance.GetCategoryByID(id);
+                    cbFoodCatagory.SelectedIndex = category.ID - 1;
                 }
                 catch
                 {
                     return;
                 }
-                Category category = CategoryDAO.Instance.GetCategoryByID(id);
-                cbFoodCatagory.SelectedIndex = category.ID - 1;
             }
         }
 
@@ -217,7 +231,6 @@ namespace QuanLyQuanCafe
                 }
             }
         }
-
         
         private void btnAddAccount_Click(object sender, EventArgs e)
         {
@@ -335,9 +348,8 @@ namespace QuanLyQuanCafe
             if (CategoryDAO.Instance.InsertCategory(name))
             {
                 MessageBox.Show("Thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                LoadTableFood();
-              //  if (insertFood != null)
-              //      insertFood(this, new EventArgs());
+                LoadFoodCategory();
+                LoadCategoryByCombobox(cbFoodCatagory);
             }
             else
                 MessageBox.Show("Thêm không thành công vì dữ liệu đã tồn tại Erron", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -346,16 +358,39 @@ namespace QuanLyQuanCafe
         private void btnDeleteCategory_Click(object sender, EventArgs e)
         {
 
+            if (MessageBox.Show(string.Format("Bạn có chắc muốn xóa danh mục {0} ra khỏi danh sách không ?", txtCategoryName.Text), "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
+            {
+                int idCategory = Convert.ToInt32(txtCategoryID.Text);
+
+                if (CategoryDAO.Instance.DeleteFoodCategory(idCategory))
+                {
+                    MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    LoadFoodCategory();
+                    LoadCategoryByCombobox(cbFoodCatagory);
+                }
+                else
+                    MessageBox.Show("Xóa không thành công. \nBạn phải xóa bên thức ăn trước \nErron", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnUpdateCategory_Click(object sender, EventArgs e)
         {
+            int id = Convert.ToInt32(txtCategoryID.Text);
+            string name = txtCategoryName.Text; 
 
+            if (CategoryDAO.Instance.UpdateFoodCategory(id, name))
+            {
+                MessageBox.Show("Sửa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                LoadFoodCategory();
+                LoadCategoryByCombobox(cbFoodCatagory);
+            }
+            else
+                MessageBox.Show("Sửa không thành công. Erron", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void btnViewCategory_Click(object sender, EventArgs e)
         {
-
+            LoadFoodCategory();
         }
         #endregion
 

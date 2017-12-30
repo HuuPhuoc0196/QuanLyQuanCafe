@@ -31,6 +31,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tbBill = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnReport = new System.Windows.Forms.Button();
             this.btnViewBill = new System.Windows.Forms.Button();
             this.dtpkToDate = new System.Windows.Forms.DateTimePicker();
             this.dtpkFromDate = new System.Windows.Forms.DateTimePicker();
@@ -69,7 +70,7 @@
             this.txtCategoryName = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.panel15 = new System.Windows.Forms.Panel();
-            this.txtCategory = new System.Windows.Forms.TextBox();
+            this.txtCategoryID = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.panel16 = new System.Windows.Forms.Panel();
             this.btnUpdateCategory = new System.Windows.Forms.Button();
@@ -118,7 +119,6 @@
             this.btnPreviours = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.txtPageNum = new System.Windows.Forms.TextBox();
-            this.btnReport = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tbBill.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -170,7 +170,7 @@
             this.tabControl1.Location = new System.Drawing.Point(13, 13);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(716, 450);
+            this.tabControl1.Size = new System.Drawing.Size(716, 476);
             this.tabControl1.TabIndex = 0;
             // 
             // tbBill
@@ -180,7 +180,7 @@
             this.tbBill.Location = new System.Drawing.Point(4, 22);
             this.tbBill.Name = "tbBill";
             this.tbBill.Padding = new System.Windows.Forms.Padding(3);
-            this.tbBill.Size = new System.Drawing.Size(708, 424);
+            this.tbBill.Size = new System.Drawing.Size(708, 450);
             this.tbBill.TabIndex = 0;
             this.tbBill.Text = "Doanh thu";
             this.tbBill.UseVisualStyleBackColor = true;
@@ -195,6 +195,16 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(696, 45);
             this.panel2.TabIndex = 3;
+            // 
+            // btnReport
+            // 
+            this.btnReport.Location = new System.Drawing.Point(354, 6);
+            this.btnReport.Name = "btnReport";
+            this.btnReport.Size = new System.Drawing.Size(118, 32);
+            this.btnReport.TabIndex = 3;
+            this.btnReport.Text = "Report";
+            this.btnReport.UseVisualStyleBackColor = true;
+            this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
             // 
             // btnViewBill
             // 
@@ -222,7 +232,12 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.txtPageNum);
+            this.panel1.Controls.Add(this.btnNext);
             this.panel1.Controls.Add(this.dgvBill);
+            this.panel1.Controls.Add(this.btnPreviours);
+            this.panel1.Controls.Add(this.btnFirst);
+            this.panel1.Controls.Add(this.btnLast);
             this.panel1.Location = new System.Drawing.Point(6, 57);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(696, 389);
@@ -232,10 +247,9 @@
             // 
             this.dgvBill.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvBill.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvBill.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvBill.Location = new System.Drawing.Point(0, 0);
             this.dgvBill.Name = "dgvBill";
-            this.dgvBill.Size = new System.Drawing.Size(696, 389);
+            this.dgvBill.Size = new System.Drawing.Size(696, 355);
             this.dgvBill.TabIndex = 0;
             // 
             // tbFood
@@ -247,7 +261,7 @@
             this.tbFood.Location = new System.Drawing.Point(4, 22);
             this.tbFood.Name = "tbFood";
             this.tbFood.Padding = new System.Windows.Forms.Padding(3);
-            this.tbFood.Size = new System.Drawing.Size(708, 424);
+            this.tbFood.Size = new System.Drawing.Size(708, 450);
             this.tbFood.TabIndex = 1;
             this.tbFood.Text = "Thức ăn";
             this.tbFood.UseVisualStyleBackColor = true;
@@ -490,7 +504,7 @@
             this.tbFoodCategory.Location = new System.Drawing.Point(4, 22);
             this.tbFoodCategory.Name = "tbFoodCategory";
             this.tbFoodCategory.Padding = new System.Windows.Forms.Padding(3);
-            this.tbFoodCategory.Size = new System.Drawing.Size(708, 424);
+            this.tbFoodCategory.Size = new System.Drawing.Size(708, 450);
             this.tbFoodCategory.TabIndex = 2;
             this.tbFoodCategory.Text = "Danh mục";
             this.tbFoodCategory.UseVisualStyleBackColor = true;
@@ -549,20 +563,20 @@
             // 
             // panel15
             // 
-            this.panel15.Controls.Add(this.txtCategory);
+            this.panel15.Controls.Add(this.txtCategoryID);
             this.panel15.Controls.Add(this.label9);
             this.panel15.Location = new System.Drawing.Point(3, 3);
             this.panel15.Name = "panel15";
             this.panel15.Size = new System.Drawing.Size(291, 34);
             this.panel15.TabIndex = 2;
             // 
-            // txtCategory
+            // txtCategoryID
             // 
-            this.txtCategory.Location = new System.Drawing.Point(128, 7);
-            this.txtCategory.Name = "txtCategory";
-            this.txtCategory.ReadOnly = true;
-            this.txtCategory.Size = new System.Drawing.Size(160, 20);
-            this.txtCategory.TabIndex = 1;
+            this.txtCategoryID.Location = new System.Drawing.Point(128, 7);
+            this.txtCategoryID.Name = "txtCategoryID";
+            this.txtCategoryID.ReadOnly = true;
+            this.txtCategoryID.Size = new System.Drawing.Size(160, 20);
+            this.txtCategoryID.TabIndex = 1;
             // 
             // label9
             // 
@@ -976,7 +990,7 @@
             // 
             // btnFirst
             // 
-            this.btnFirst.Location = new System.Drawing.Point(17, 465);
+            this.btnFirst.Location = new System.Drawing.Point(5, 361);
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Size = new System.Drawing.Size(110, 28);
             this.btnFirst.TabIndex = 1;
@@ -986,7 +1000,7 @@
             // 
             // btnLast
             // 
-            this.btnLast.Location = new System.Drawing.Point(615, 465);
+            this.btnLast.Location = new System.Drawing.Point(583, 361);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(110, 28);
             this.btnLast.TabIndex = 2;
@@ -996,7 +1010,7 @@
             // 
             // btnPreviours
             // 
-            this.btnPreviours.Location = new System.Drawing.Point(133, 465);
+            this.btnPreviours.Location = new System.Drawing.Point(121, 361);
             this.btnPreviours.Name = "btnPreviours";
             this.btnPreviours.Size = new System.Drawing.Size(110, 28);
             this.btnPreviours.TabIndex = 3;
@@ -1006,7 +1020,7 @@
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(483, 465);
+            this.btnNext.Location = new System.Drawing.Point(451, 361);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(126, 28);
             this.btnNext.TabIndex = 4;
@@ -1016,7 +1030,7 @@
             // 
             // txtPageNum
             // 
-            this.txtPageNum.Location = new System.Drawing.Point(316, 470);
+            this.txtPageNum.Location = new System.Drawing.Point(295, 366);
             this.txtPageNum.Name = "txtPageNum";
             this.txtPageNum.ReadOnly = true;
             this.txtPageNum.Size = new System.Drawing.Size(85, 20);
@@ -1025,26 +1039,11 @@
             this.txtPageNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPageNum.TextChanged += new System.EventHandler(this.txtPageNum_TextChanged);
             // 
-            // btnReport
-            // 
-            this.btnReport.Location = new System.Drawing.Point(354, 6);
-            this.btnReport.Name = "btnReport";
-            this.btnReport.Size = new System.Drawing.Size(118, 32);
-            this.btnReport.TabIndex = 3;
-            this.btnReport.Text = "Report";
-            this.btnReport.UseVisualStyleBackColor = true;
-            this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
-            // 
             // frmAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(741, 503);
-            this.Controls.Add(this.txtPageNum);
-            this.Controls.Add(this.btnNext);
-            this.Controls.Add(this.btnPreviours);
-            this.Controls.Add(this.btnLast);
-            this.Controls.Add(this.btnFirst);
+            this.ClientSize = new System.Drawing.Size(741, 501);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -1055,6 +1054,7 @@
             this.tbBill.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBill)).EndInit();
             this.tbFood.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
@@ -1104,7 +1104,6 @@
             this.panel26.PerformLayout();
             this.panel27.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -1153,7 +1152,7 @@
         private System.Windows.Forms.TextBox txtCategoryName;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel15;
-        private System.Windows.Forms.TextBox txtCategory;
+        private System.Windows.Forms.TextBox txtCategoryID;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel16;
         private System.Windows.Forms.Button btnUpdateCategory;
