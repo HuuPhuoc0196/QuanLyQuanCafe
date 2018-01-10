@@ -18,6 +18,7 @@ namespace QuanLyQuanCafe
         BindingSource foodList = new BindingSource();
         BindingSource AccountList = new BindingSource();
         BindingSource foodCategory = new BindingSource();
+        BindingSource table = new BindingSource();
 
         public Account loginAccount;
         public frmAdmin()
@@ -40,6 +41,8 @@ namespace QuanLyQuanCafe
             AddAccountBinding();
             LoadFoodCategory();
             AddFoodCategoryBinding();
+            LoadTable();
+            AddTableBinding();
         }
 
         void AddFoodBinding()
@@ -53,6 +56,13 @@ namespace QuanLyQuanCafe
         {
             txtCategoryID.DataBindings.Add("Text", dgvCategory.DataSource, "Mã", true, DataSourceUpdateMode.Never);
             txtCategoryName.DataBindings.Add("Text", dgvCategory.DataSource, "Tên", true, DataSourceUpdateMode.Never);
+        }
+
+        void AddTableBinding()
+        {
+            txtTableID.DataBindings.Add("Text", dgvTable.DataSource, "Mã bàn", true, DataSourceUpdateMode.Never);
+            txtTableName.DataBindings.Add("Text", dgvTable.DataSource, "Tên bàn", true, DataSourceUpdateMode.Never);
+            cbTableStatus.DataBindings.Add("Text", dgvTable.DataSource, "Trạng thái", true, DataSourceUpdateMode.Never);
         }
 
         void LoadCategoryByCombobox(ComboBox cb)
@@ -88,11 +98,16 @@ namespace QuanLyQuanCafe
             dgvAccount.DataSource = AccountList;
         }
 
+        void LoadTable()
+        {
+            table.DataSource = TableDAO.Instance.GetTable();
+            dgvTable.DataSource = table;
+        }
+
         void AddAccountBinding()
         {
             txtUser.DataBindings.Add("Text", dgvAccount.DataSource, "Tài khoản", true, DataSourceUpdateMode.Never);
             txtDisPlayName.DataBindings.Add("Text", dgvAccount.DataSource, "Tên hiển thị", true, DataSourceUpdateMode.Never);
-
         }
 
         void LoadListAccountType()
@@ -207,6 +222,26 @@ namespace QuanLyQuanCafe
             remove { deleteFood -= value; }
         }
 
+        private event EventHandler insertTable;
+        public event EventHandler InsertTable
+        {
+            add { insertTable += value; }
+            remove { insertTable -= value; }
+        }
+
+        private event EventHandler updateTable;
+        public event EventHandler UpdateTable
+        {
+            add { updateTable += value; }
+            remove { updateTable -= value; }
+        }
+
+        private event EventHandler deleteTable;
+        public event EventHandler DeleteTable
+        {
+            add { deleteTable += value; }
+            remove { deleteTable -= value; }
+        }
         private void btnSearchFood_Click(object sender, EventArgs e)
         {
             string name = txtSearchFoodName.Text;
@@ -392,7 +427,69 @@ namespace QuanLyQuanCafe
         {
             LoadFoodCategory();
         }
+        private void btnViewTable_Click(object sender, EventArgs e)
+        {
+            LoadTable();
+        }
+
+        private void btnAddTable_Click(object sender, EventArgs e)
+        {
+            string name = txtTableName.Text;
+            string status = cbTableStatus.SelectedItem.ToString();
+            if (TableDAO.Instance.InsertTable(name, status))
+            {
+                MessageBox.Show("Thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                LoadTable();
+                if (insertTable != null)
+                    insertTable(this, new EventArgs());
+            }
+            else
+                MessageBox.Show("Thêm không thành công vì dữ liệu đã tồn tại hoặc tên bàn trống Erron", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void btnUpdateTable_Click(object sender, EventArgs e)
+        {
+            int id = Convert.ToInt32(txtTableID.Text);
+            string name = txtTableName.Text;
+            string status = cbTableStatus.SelectedItem.ToString();
+            if (TableDAO.Instance.UpdateTalbe(id,name, status))
+            {
+                MessageBox.Show("Sửa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                LoadTable();
+                if (updateTable != null)
+                    updateTable(this, new EventArgs());
+            }
+            else
+                MessageBox.Show("Sửa không thành công. Erron", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void btnDeleteTable_Click(object sender, EventArgs e)
+        {
+
+            if (MessageBox.Show(string.Format("Bạn có chắc muốn xóa {0} ra khỏi danh sách thức ăn không ?", txtTableName.Text), "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
+            {
+                int id = Convert.ToInt32(txtTableID.Text);
+
+                if (TableDAO.Instance.DeleteTable(id))
+                {
+                    MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    LoadTable();
+                    if (deleteTable != null)
+                        deleteTable(this, new EventArgs());
+                }
+                else
+                    MessageBox.Show("Bàn ăn Có Người không thể xóa. Erron", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         #endregion
+
+       
+
+        
+
+       
+
+        
 
        
 

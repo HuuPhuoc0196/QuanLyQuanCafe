@@ -40,5 +40,41 @@ namespace QuanLyQuanCafe.DAO
         {
             DataProvider.Instance.ExecuteQuery("EXEC usp_SwitchTable @idTable1 , @idTable2", new object[] { idTable1, idTable2 });
         }
+
+        public bool InsertTable(string name, string status)
+        {
+            string query = "EXEC usp_InsertTable @name , @status ";
+
+            int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { name, status });
+
+            return result > 0;
+        }
+
+        public DataTable GetTable()
+        {
+            string query = "SELECT Id as [Mã bàn] , Name as [Tên bàn], status as [Trạng thái] FROM TableFood";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query);
+            return data;
+        }
+
+
+        public bool UpdateTalbe(int id, string name, string status)
+        {
+            string query = "UPDATE TableFood Set Name = @name , status = @status WHERE Id = @id";
+
+            int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { name, status, id });
+
+            return result > 0;
+        }
+
+        public bool DeleteTable(int id)
+        {
+
+            string query = "EXEC usp_DeleteTable @id";
+
+            int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { id });
+
+            return result > 0;
+        }
     }
 }

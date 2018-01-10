@@ -36,7 +36,12 @@
             this.dtpkToDate = new System.Windows.Forms.DateTimePicker();
             this.dtpkFromDate = new System.Windows.Forms.DateTimePicker();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txtPageNum = new System.Windows.Forms.TextBox();
+            this.btnNext = new System.Windows.Forms.Button();
             this.dgvBill = new System.Windows.Forms.DataGridView();
+            this.btnPreviours = new System.Windows.Forms.Button();
+            this.btnFirst = new System.Windows.Forms.Button();
+            this.btnLast = new System.Windows.Forms.Button();
             this.tbFood = new System.Windows.Forms.TabPage();
             this.panel6 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
@@ -114,11 +119,6 @@
             this.btnViewAccount = new System.Windows.Forms.Button();
             this.btnDeleteAccount = new System.Windows.Forms.Button();
             this.btnAddAccount = new System.Windows.Forms.Button();
-            this.btnFirst = new System.Windows.Forms.Button();
-            this.btnLast = new System.Windows.Forms.Button();
-            this.btnPreviours = new System.Windows.Forms.Button();
-            this.btnNext = new System.Windows.Forms.Button();
-            this.txtPageNum = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tbBill.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -243,6 +243,27 @@
             this.panel1.Size = new System.Drawing.Size(696, 389);
             this.panel1.TabIndex = 2;
             // 
+            // txtPageNum
+            // 
+            this.txtPageNum.Location = new System.Drawing.Point(295, 366);
+            this.txtPageNum.Name = "txtPageNum";
+            this.txtPageNum.ReadOnly = true;
+            this.txtPageNum.Size = new System.Drawing.Size(85, 20);
+            this.txtPageNum.TabIndex = 5;
+            this.txtPageNum.Text = "1";
+            this.txtPageNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPageNum.TextChanged += new System.EventHandler(this.txtPageNum_TextChanged);
+            // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(451, 361);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(126, 28);
+            this.btnNext.TabIndex = 4;
+            this.btnNext.Text = ">> Trang Tiếp Theo <<";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
             // dgvBill
             // 
             this.dgvBill.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -251,6 +272,36 @@
             this.dgvBill.Name = "dgvBill";
             this.dgvBill.Size = new System.Drawing.Size(696, 355);
             this.dgvBill.TabIndex = 0;
+            // 
+            // btnPreviours
+            // 
+            this.btnPreviours.Location = new System.Drawing.Point(121, 361);
+            this.btnPreviours.Name = "btnPreviours";
+            this.btnPreviours.Size = new System.Drawing.Size(110, 28);
+            this.btnPreviours.TabIndex = 3;
+            this.btnPreviours.Text = ">> Trang Trước <<";
+            this.btnPreviours.UseVisualStyleBackColor = true;
+            this.btnPreviours.Click += new System.EventHandler(this.btnPreviours_Click);
+            // 
+            // btnFirst
+            // 
+            this.btnFirst.Location = new System.Drawing.Point(5, 361);
+            this.btnFirst.Name = "btnFirst";
+            this.btnFirst.Size = new System.Drawing.Size(110, 28);
+            this.btnFirst.TabIndex = 1;
+            this.btnFirst.Text = ">> Trang Đầu <<";
+            this.btnFirst.UseVisualStyleBackColor = true;
+            this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
+            // 
+            // btnLast
+            // 
+            this.btnLast.Location = new System.Drawing.Point(583, 361);
+            this.btnLast.Name = "btnLast";
+            this.btnLast.Size = new System.Drawing.Size(110, 28);
+            this.btnLast.TabIndex = 2;
+            this.btnLast.Text = ">> Trang Cuối <<";
+            this.btnLast.UseVisualStyleBackColor = true;
+            this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
             // 
             // tbFood
             // 
@@ -647,7 +698,7 @@
             this.tbTable.Location = new System.Drawing.Point(4, 22);
             this.tbTable.Name = "tbTable";
             this.tbTable.Padding = new System.Windows.Forms.Padding(3);
-            this.tbTable.Size = new System.Drawing.Size(708, 424);
+            this.tbTable.Size = new System.Drawing.Size(708, 450);
             this.tbTable.TabIndex = 3;
             this.tbTable.Text = "Bàn ăn";
             this.tbTable.UseVisualStyleBackColor = true;
@@ -691,10 +742,14 @@
             // cbTableStatus
             // 
             this.cbTableStatus.FormattingEnabled = true;
+            this.cbTableStatus.Items.AddRange(new object[] {
+            "Trống",
+            "Có Người"});
             this.cbTableStatus.Location = new System.Drawing.Point(128, 6);
             this.cbTableStatus.Name = "cbTableStatus";
             this.cbTableStatus.Size = new System.Drawing.Size(160, 21);
             this.cbTableStatus.TabIndex = 1;
+            this.cbTableStatus.Text = "Trống";
             // 
             // label10
             // 
@@ -778,6 +833,7 @@
             this.btnUpdateTable.TabIndex = 6;
             this.btnUpdateTable.Text = "Sửa";
             this.btnUpdateTable.UseVisualStyleBackColor = true;
+            this.btnUpdateTable.Click += new System.EventHandler(this.btnUpdateTable_Click);
             // 
             // btnViewTable
             // 
@@ -787,6 +843,7 @@
             this.btnViewTable.TabIndex = 5;
             this.btnViewTable.Text = "Xem";
             this.btnViewTable.UseVisualStyleBackColor = true;
+            this.btnViewTable.Click += new System.EventHandler(this.btnViewTable_Click);
             // 
             // btnDeleteTable
             // 
@@ -796,6 +853,7 @@
             this.btnDeleteTable.TabIndex = 4;
             this.btnDeleteTable.Text = "Xóa";
             this.btnDeleteTable.UseVisualStyleBackColor = true;
+            this.btnDeleteTable.Click += new System.EventHandler(this.btnDeleteTable_Click);
             // 
             // btnAddTable
             // 
@@ -805,6 +863,7 @@
             this.btnAddTable.TabIndex = 3;
             this.btnAddTable.Text = "Thêm";
             this.btnAddTable.UseVisualStyleBackColor = true;
+            this.btnAddTable.Click += new System.EventHandler(this.btnAddTable_Click);
             // 
             // tbAccount
             // 
@@ -814,7 +873,7 @@
             this.tbAccount.Location = new System.Drawing.Point(4, 22);
             this.tbAccount.Name = "tbAccount";
             this.tbAccount.Padding = new System.Windows.Forms.Padding(3);
-            this.tbAccount.Size = new System.Drawing.Size(708, 424);
+            this.tbAccount.Size = new System.Drawing.Size(708, 450);
             this.tbAccount.TabIndex = 4;
             this.tbAccount.Text = "Tài khoản";
             this.tbAccount.UseVisualStyleBackColor = true;
@@ -987,57 +1046,6 @@
             this.btnAddAccount.Text = "Thêm";
             this.btnAddAccount.UseVisualStyleBackColor = true;
             this.btnAddAccount.Click += new System.EventHandler(this.btnAddAccount_Click);
-            // 
-            // btnFirst
-            // 
-            this.btnFirst.Location = new System.Drawing.Point(5, 361);
-            this.btnFirst.Name = "btnFirst";
-            this.btnFirst.Size = new System.Drawing.Size(110, 28);
-            this.btnFirst.TabIndex = 1;
-            this.btnFirst.Text = ">> Trang Đầu <<";
-            this.btnFirst.UseVisualStyleBackColor = true;
-            this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
-            // 
-            // btnLast
-            // 
-            this.btnLast.Location = new System.Drawing.Point(583, 361);
-            this.btnLast.Name = "btnLast";
-            this.btnLast.Size = new System.Drawing.Size(110, 28);
-            this.btnLast.TabIndex = 2;
-            this.btnLast.Text = ">> Trang Cuối <<";
-            this.btnLast.UseVisualStyleBackColor = true;
-            this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
-            // 
-            // btnPreviours
-            // 
-            this.btnPreviours.Location = new System.Drawing.Point(121, 361);
-            this.btnPreviours.Name = "btnPreviours";
-            this.btnPreviours.Size = new System.Drawing.Size(110, 28);
-            this.btnPreviours.TabIndex = 3;
-            this.btnPreviours.Text = ">> Trang Trước <<";
-            this.btnPreviours.UseVisualStyleBackColor = true;
-            this.btnPreviours.Click += new System.EventHandler(this.btnPreviours_Click);
-            // 
-            // btnNext
-            // 
-            this.btnNext.Location = new System.Drawing.Point(451, 361);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(126, 28);
-            this.btnNext.TabIndex = 4;
-            this.btnNext.Text = ">> Trang Tiếp Theo <<";
-            this.btnNext.UseVisualStyleBackColor = true;
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // txtPageNum
-            // 
-            this.txtPageNum.Location = new System.Drawing.Point(295, 366);
-            this.txtPageNum.Name = "txtPageNum";
-            this.txtPageNum.ReadOnly = true;
-            this.txtPageNum.Size = new System.Drawing.Size(85, 20);
-            this.txtPageNum.TabIndex = 5;
-            this.txtPageNum.Text = "1";
-            this.txtPageNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtPageNum.TextChanged += new System.EventHandler(this.txtPageNum_TextChanged);
             // 
             // frmAdmin
             // 

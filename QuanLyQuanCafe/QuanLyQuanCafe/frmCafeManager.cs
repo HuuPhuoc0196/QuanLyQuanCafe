@@ -131,7 +131,25 @@ namespace QuanLyQuanCafe
             f.InsertFood += f_InsertFood;
             f.DeleteFood += f_DeleteFood;
             f.UpdateFood += f_UpdateFood;
+            f.InsertTable += f_InsertTable;
+            f.UpdateTable += f_UpdateTable;
+            f.DeleteTable += f_DeleteTable;
             f.ShowDialog();
+        }
+
+        void f_DeleteTable(object sender, EventArgs e)
+        {
+            loadTable();
+        }
+
+        void f_UpdateTable(object sender, EventArgs e)
+        {
+            loadTable();
+        }
+
+        void f_InsertTable(object sender, EventArgs e)
+        {
+            loadTable();
         }
 
         void f_UpdateFood(object sender, EventArgs e)
